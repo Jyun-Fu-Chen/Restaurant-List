@@ -11,8 +11,8 @@ app.set('view engine', 'handlebars')
 
 app.use(express.static('public'))
 app.get('/',(req, res)=>{
-con
-  res.render('index')
+  const restaurant = restaurantList.results
+  res.render('index',{restaurants: restaurant})
 })
 
 
