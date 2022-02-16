@@ -4,6 +4,7 @@ const port = 3000
 const restaurantList = require('./restaurant.json')
 
 const exphbs = require('express-handlebars')
+const req = require('express/lib/request')
 
 
 app.engine('handlebars',exphbs({defaultLayout: 'main'}))
@@ -17,10 +18,18 @@ app.get('/',(req, res)=>{
 app.get('/restaurants/:restaurant_id',(req,res)=>{
   console.log(req.params.restaurant_id)
   const restaurantFiltered = restaurantList.results.filter((restaurant)=>restaurant.id === Number(req.params.restaurant_id))
-  console.log(restaurantFiltered)
   res.render('show', {restaurants: restaurantFiltered[0]})
-
 })
+app.get('/search',(req,res)=>{
+  const keyword = req.query.keyword.toLowerCase()
+  const restaurant = restaurantList.results.filter(function (item){
+    if (item.name.toLowerCase().includes(keyword) || item.category.toLowerCase().includes(keyword)){
+    return item
+  }
+})
+  res.render('index', { restaurants: restaurant })
+})
+
 
 app.listen(port,()=>{
   console.log(`express is listening localhost:${port}`)
