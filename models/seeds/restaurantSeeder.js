@@ -11,5 +11,6 @@ db.once('open', () => {
   console.log('mongodb connected!')
 Restaurant.create(restaurantList);
 console.log('done!')
-//問題：這邊不需要帶forEach之類的迴圈進去把資料一筆筆新增到資料庫嗎？
+//為什麼這邊不需要帶forEach之類的迴圈把restaurantList的資料一筆筆新增到資料庫？
+//為什麼這樣寫不會導致Database只有一筆Key，json檔裡面的資料全部變成一個Value呢？
 })
