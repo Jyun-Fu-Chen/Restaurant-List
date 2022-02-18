@@ -7,6 +7,8 @@ const restaurantList = require('./restaurant.json')
 
 const exphbs = require('express-handlebars')
 const req = require('express/lib/request')
+
+
 mongoose.connect('mongodb://localhost/restaurant-list')
 db.on('error', ()=>{
   console.log('mongodb error!')
