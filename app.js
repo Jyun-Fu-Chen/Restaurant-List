@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 
 const exphbs = require('express-handlebars')
 const Restaurant = require('./models/restaurant')
+const restaurant = require('./models/restaurant')
 app.use(express.urlencoded({extended: true}))
 
 mongoose.connect('mongodb://localhost/restaurant-list')
@@ -93,6 +94,7 @@ app.post('/restaurants/:restaurant_id/edit',(req, res) => {
    restaurant.rating = data.rating
    restaurant.description = data.description
    console.log(data.category)
+  // Object.values(restaurant) = Object.values(data)
    return restaurant.save()
  })
   .then(() => {
@@ -102,9 +104,16 @@ app.post('/restaurants/:restaurant_id/edit',(req, res) => {
 })
 
 
-
-
 // 刪除功能
+app.post("/restaurants/:restaurant_id/delete",(req, res)=>{
+  const id = req.params.restaurant_id
+  return Restaurant.findById(id)
+  .then(restaurant=>{
+    restaurant.remove()})
+    .then(()=>res.redirect('/'))
+    .catch(error => console.log(error))
+
+})
 
 
 app.listen(port,()=>{
