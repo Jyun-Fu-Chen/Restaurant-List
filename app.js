@@ -83,6 +83,7 @@ app.post('/restaurants/:restaurant_id/edit',(req, res) => {
   const id = req.params.restaurant_id
   const data = req.body
   return Restaurant.findById(id)
+  //不知道以下有沒有更好的寫法...
  .then(restaurant =>{
    restaurant.name = data.name
    restaurant.name_en = data.name_en
@@ -93,7 +94,6 @@ app.post('/restaurants/:restaurant_id/edit',(req, res) => {
    restaurant.google_map = data.google_map
    restaurant.rating = data.rating
    restaurant.description = data.description
-   console.log(data.category)
   // Object.values(restaurant) = Object.values(data)
    return restaurant.save()
  })

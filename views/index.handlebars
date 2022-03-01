@@ -30,15 +30,17 @@
               <i class="fas fa-utensils pr-2"></i> {{this.category}}
             </div>
 
-            <span class="badge badge-pill badge-danger font-weight-normal">
-              {{this.rating}}
-              <i class="fas fa-star fa-xs"></i>
-            </span>
-            <a href="/restaurants/{{this._id}}/edit">Edit</a>
-            <a href="/restaurants/{{this._id}}">Detail</a>
-            <form action="/restaurants/{{this._id}}/delete" method="POST" style="display: inline;">
-              <button class="btn btn-danger" type="submit">Delete</button>
-            </form>
+            <div class="mt-3">
+              <span class="badge badge-pill badge-danger font-weight-normal">
+                {{this.rating}}
+                <i class="fas fa-star fa-xs"></i>
+              </span>
+              <a href="/restaurants/{{this._id}}/edit" class="btn btn-danger">Edit</a>
+              <a href="/restaurants/{{this._id}}" class="btn btn-danger">Detail</a>
+              <form action="/restaurants/{{this._id}}/delete" method="POST" style="display: inline;">
+                <button class="btn btn-danger" type="submit">Delete</button>
+              </form>
+            </div>
           </div>
         </div>
         {{/each}}
