@@ -3,6 +3,6 @@ const Restaurant = require('../restaurant')
 const RestaurantList = require('../../restaurant.json').results
 
 db.once('open', () => {
-Restaurant.create(RestaurantList);
-console.log('done!')
+  Restaurant.create(RestaurantList);
+  console.log('done!')
 })

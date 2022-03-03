@@ -6,6 +6,7 @@
 
 # 環境建置與需求
 <ol>
+<li>npm install</li>
 <li>Node.js</li>
 <li>Express3.0.0</li>
 <li>handlebars</li>
