@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../../models/user')
+const passport = require('passport')
 
 
 //登入頁面
@@ -26,7 +27,7 @@ router.post('/register', (req, res) => {
   }
   User.findOne({ email })
     .then(user => {
-      
+
       if (user) {
         console.log('User already exists')
         res.render('register', {
@@ -46,5 +47,11 @@ router.post('/register', (req, res) => {
       }
     })
 })
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/users/register'
+}))
+
+
 
 module.exports = router
