@@ -27,7 +27,30 @@ router.get("/new", (req, res) => {
 })
 //新增餐廳功能
 router.post("/", (req, res) => {
-  return Restaurant.create(req.body)
+  const {
+    name,
+    name_en,
+    category,
+    image,
+    location,
+    phone,
+    google_map,
+    rating,
+    description
+  } = req.body
+  const userId = req.user._id
+  return Restaurant.create({
+    name,
+    name_en,
+    category,
+    image,
+    location,
+    phone,
+    google_map,
+    rating,
+    description,
+    userId
+  })
     .then(() => res.redirect("/"))
     .catch(error => {
       console.log(error)
@@ -37,8 +60,9 @@ router.post("/", (req, res) => {
 
 //詳細頁面功能
 router.get('/:restaurant_id', (req, res) => {
-  const id = req.params.restaurant_id
-  return Restaurant.findById(id)
+  const userId = req.user._id
+  const _id = req.params.restaurant_id
+  return Restaurant.findOne({ _id, userId })
     .lean()
     .then(restaurant => res.render('show', { restaurant }))
     .catch(error => {
@@ -50,8 +74,9 @@ router.get('/:restaurant_id', (req, res) => {
 
 //編輯頁面
 router.get('/:restaurant_id/edit', (req, res) => {
-  const id = req.params.restaurant_id
-  return Restaurant.findById(id)
+  const userId = req.user._id
+  const _id = req.params.restaurant_id
+  return Restaurant.findOne({ _id, userId })
     .lean()
     .then(restaurant => res.render('edit', { restaurant }))
     .catch(error => {
