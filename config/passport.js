@@ -8,18 +8,18 @@ module.exports = app => {
   app.use(passport.initialize())
   app.use(passport.session())
   //設定策略
-  passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
+  passport.use(new LocalStrategy({ usernameField: "email", passReqToCallback: true }, (req, email, password, done) => {
     User.findOne({ email })
       .then(user => {
         if (!user) {
-          return done(null, false, { message: 'That email is not registered' })
+          return done(null, false, req.flash('warning_msg', '這個帳戶尚未註冊'))
         }
         if (user.password !== password) {
-          return done(null, false, { message: 'Password incorrect' })
+          return done(null, false, req.flash('warning_msg', '密碼錯誤'))
         }
         return done(null, user)
       })
-      .catch(err => done(err, false, { message: 'something wrong. Please contact us!' }))
+      .catch(err => done(err, false, req.flash('warning_msg', '錯誤！請嘗試聯絡我們～')))
   }))
   //序列化與反序列化
   passport.serializeUser((user, done) => {

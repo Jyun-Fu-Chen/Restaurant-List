@@ -18,9 +18,14 @@ router.get('/register', (req, res) => {
 //註冊請求
 router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
+  const errors = []
+  if (!email || !password || !confirmPassword) {
+    errors.push({ message: "所有欄位都要填！" })
+  }
   if (password !== confirmPassword) {
-    console.log('密碼不一致，請重新輸入！')
+    errors.push({ message: '密碼長度不一致' })
     return res.render('register', {
+      errors,
       name,
       email,
     })
@@ -29,8 +34,9 @@ router.post('/register', (req, res) => {
     .then(user => {
 
       if (user) {
-        console.log('User already exists')
+        errors.push({ message: '此用戶已經存在！' })
         res.render('register', {
+          errors,
           name,
           email,
           password,
@@ -49,12 +55,13 @@ router.post('/register', (req, res) => {
 })
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/users/register'
+  failureRedirect: '/users/login'
 }))
 
 
 router.get('/logout', (req, res) => {
   req.logout()
+  req.flash('success_msg', '你已經成功登出！')
   res.redirect('/users/login')
 })
 

@@ -2,9 +2,10 @@
   <div class="col-md-6 m-auto">
     <div class="card card-body">
       <h1 class="text-center mt-3">Register</h1>
+      {{> message}}
       <form action="/users/register" method="POST">
         <div class="row mb-3">
-          <label for="Name" class="col-form-label">Name</label>
+          <label for="Name" class="col-form-label">Name(option)</label>
           <div class="col-sm-12">
             <input type="text" class="form-control" id="Name" name="name" placeholder="Enter Name..." value="{{name}}">
           </div>
@@ -43,4 +44,4 @@
       </p>
     </div>
   </div>
-  </div>
+</div>
