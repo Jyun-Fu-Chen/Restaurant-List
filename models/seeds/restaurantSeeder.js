@@ -19,7 +19,8 @@ const SEED_USER = [
 
 db.once('open', () => {
   //create兩種不一樣的帳戶
-  for (let i = 0; i < 2; i++) {
+  let count = 0
+  for (let i = 0; i < SEED_USER.length; i++) {
     bcrypt
       .genSalt(10)
       .then(salt => bcrypt.hash(SEED_USER[i].password, salt))
@@ -30,7 +31,7 @@ db.once('open', () => {
       .then(user => {
         const userId = user._id
         if (user.email === 'user1@example.com') {
-          Promise.all(Array.from(
+          return Promise.all(Array.from(
             { length: 3 },
             (v, i) => Restaurant.create({
               id: RestaurantList[i].id,
@@ -47,7 +48,7 @@ db.once('open', () => {
             })
           ))
         } else {
-          Promise.all(Array.from(
+          return Promise.all(Array.from(
             { length: 3 },
             (v, i) => Restaurant.create({
               id: RestaurantList[i + 3].id,
@@ -66,7 +67,9 @@ db.once('open', () => {
         }
       })
       .then(() => {
-        console.log('all done!')
+        if (count === SEED_USER.length) {
+          process.exit()
+        }
       })
   }
 })
