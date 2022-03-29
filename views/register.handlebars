@@ -5,23 +5,23 @@
       {{> message}}
       <form action="/users/register" method="POST">
         <div class="row mb-3">
-          <label for="Name" class="col-form-label">Name(option)</label>
+          <label for="Name" class="col-form-label">Name</label>
           <div class="col-sm-12">
-            <input type="text" class="form-control" id="Name" name="name" placeholder="Enter Name..." value="{{name}}">
+            <input type="text" class="form-control" id="Name" name="name" placeholder="選填欄位" value="{{name}}">
           </div>
         </div>
         <div class="row mb-3">
-          <label for="inputEmail3" class="col-form-label">Email</label>
+          <label for="inputEmail3" class="col-form-label">Email*</label>
           <div class="col-sm-12">
-            <input type="email" class="form-control" id="inputEmail3" name="email" placeholder="Enter Email..."
-              value="{{email}}">
+            <input type="email" class="form-control" id="inputEmail3" name="email" placeholder="必填欄位"
+              value="{{email}}" required>
           </div>
         </div>
         <div class="row mb-3">
-          <label for="inputPassword" class="col-form-label">Password</label>
+          <label for="inputPassword" class="col-form-label">Password*</label>
           <div class="col-sm-12">
             <input type="password" class="form-control" id="inputPassword" name="password"
-              placeholder="Enter Password..." value="{{password}}">
+              placeholder="必填欄位" value="{{password}}" required>
           </div>
         </div>
 
@@ -29,7 +29,7 @@
           <label for="confirmPassword" class="col-form-label">Confirm Password</label>
           <div class="col-sm-12">
             <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-              placeholder="Confirm Password..." value="{{confirmPassword}}">
+              placeholder="請重新輸入密碼" value="{{confirmPassword}}" required>
           </div>
         </div>
         <div class="d-grid gap-2">
